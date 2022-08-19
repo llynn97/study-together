@@ -20,34 +20,28 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @ResponseBody
-    @GetMapping("/login/oauth2/code/kakao")
-    @ApiOperation(value = "카카오 로그인", notes = "카카오 로그인")
-    public void kakaoCallBack(@RequestParam String code ){
-        String access_Token=authService.getKaKaoAccessToken(code);
-    }
 
-    @ResponseBody
     @PostMapping("/local/new")
     @ApiOperation(value = "일반 회원가입", notes = "일반 회원가입")
-    public ResponseDto<?> join(@RequestBody @Validated SignUpRequestDto signUpRequestDto, BindingResult bindingResult){
+    public ResponseDto<?> join(@RequestBody @Validated SignUpRequestDto signUpRequestDto, BindingResult bindingResult) {
 
         return authService.join(signUpRequestDto, UserMethod.일반);
     }
 
-    @ResponseBody
+
     @GetMapping("/local/checkid/{id}")
     @ApiOperation(value = "아이디 중복 확인", notes = "아이디 중복 확인")
-    public ResponseDto<?> duplicateCheckId(@PathVariable String id){
+    public ResponseDto<?> duplicateCheckId(@PathVariable String id) {
+
         return authService.duplicateCheckId(id);
     }
 
-    @ResponseBody
+
     @GetMapping("/local/checkemail/{email}")
     @ApiOperation(value = "이메일 중복 확인", notes = "이메일 중복 확인")
-    public ResponseDto<?> duplicateCheckEmail(@PathVariable String email){
+    public ResponseDto<?> duplicateCheckEmail(@PathVariable String email) {
 
-       return authService.duplicateCheckEmail(email);
+        return authService.duplicateCheckEmail(email);
     }
 
 }

@@ -10,18 +10,21 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name="tag")
+@Entity(name = "tag")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Tag {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tag_id;
+    @Column(name = "tag_id")
+    private Long tagId;
 
-    private String tag_name;
+    private String tagName;
 
     @OneToMany(mappedBy = "tag")
-    private List<Category> categoryList=new ArrayList<>();
+    private List<Category> categoryList = new ArrayList<>();
+
 }

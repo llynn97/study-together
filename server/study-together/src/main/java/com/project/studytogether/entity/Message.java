@@ -5,23 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name="message")
+@Entity(name = "message")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Message {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long message_id;
+    @Column(name = "message_id")
+    private Long messageId;
 
-    @DateTimeFormat
-    private LocalDateTime written_date;
+    private LocalDateTime writtenDate;
 
     @Column(columnDefinition = "TEXT")
     private String content;
@@ -34,8 +34,7 @@ public class Message {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="chat_room_id")
-    private Chat_Room chat_room;
-
+    @JoinColumn(name = "chat_room_id")
+    private ChatRoom chatRoom;
 
 }

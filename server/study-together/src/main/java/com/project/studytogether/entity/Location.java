@@ -7,15 +7,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name="location")
+@Entity(name = "location")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Location {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long location_id;
+    @Column(name = "location_id")
+    private Long locationId;
 
     @Column(columnDefinition = "TEXT")
     private String address;
@@ -25,4 +27,5 @@ public class Location {
 
     @OneToOne(mappedBy = "location")
     private Study study;
+
 }
