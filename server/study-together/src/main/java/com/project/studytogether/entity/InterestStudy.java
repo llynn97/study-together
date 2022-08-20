@@ -1,30 +1,30 @@
 package com.project.studytogether.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
-@Entity(name = "chat_room_join")
-@Data
-@AllArgsConstructor
+@Entity(name = "interest_study")
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class Chat_Room_Join {
+public class InterestStudy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long chat_room_join_id;
+    @Column(name = "interest_study_id")
+    private Long interestStudyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_room_id")
-    private Chat_Room chat_room;
+    @JoinColumn(name = "study_id")
+    private Study study;
+
 }

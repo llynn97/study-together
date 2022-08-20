@@ -6,15 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Entity(name="study")
+@Entity(name = "study")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,16 +22,16 @@ public class Study {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long study_id;
+    @Column(name = "study_id")
+    private Long studyId;
 
     @Column(columnDefinition = "integer default 1")
     private Integer headcount;
 
     @Enumerated(EnumType.STRING)
-    private StudyStatus study_status;
+    private StudyStatus studyStatus;
 
-    @Temporal(TemporalType.DATE)
-    private Date start_date;
+    private LocalDate startDate;
 
     @Enumerated(EnumType.STRING)
     private StudyMethod method;
@@ -40,25 +39,25 @@ public class Study {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @DateTimeFormat
-    private LocalDateTime written_date;
+    private LocalDateTime writtenDate;
 
     @Column(length = 100)
     private String title;
 
-    @OneToMany(mappedBy = "study",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Interest_Study> interestStudyList=new ArrayList<>();
+    @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InterestStudy> interestStudyList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "study",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Study_User> studyUserList=new ArrayList<>();
+    @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StudyUser> studyUserList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "study",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Category> categoryList=new ArrayList<>();
+    @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Category> categoryList = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="location_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
     private Location location;
 
     @OneToOne(mappedBy = "study")
-    private Chat_Room chat_room;
+    private ChatRoom chatRoom;
+
 }

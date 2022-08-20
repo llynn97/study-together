@@ -11,18 +11,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name="notification")
+@Entity(name = "notification")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Notification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long notification_id;
+    @Column(name = "notification_id")
+    private Long notificationId;
 
-    @DateTimeFormat
-    private LocalDateTime create_date;
+    private LocalDateTime createDate;
 
     @Column(columnDefinition = "text")
     private String message;
@@ -33,4 +34,5 @@ public class Notification {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
 }
