@@ -44,8 +44,8 @@ public class Study {
     @Column(length = 100)
     private String title;
 
-    @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InterestStudy> interestStudyList = new ArrayList<>();
+//    @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<InterestStudy> interestStudyList = new ArrayList<>();
 
     @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudyUser> studyUserList = new ArrayList<>();
@@ -60,4 +60,7 @@ public class Study {
     @OneToOne(mappedBy = "study")
     private ChatRoom chatRoom;
 
+    public void setLocation(Location location) {
+        location.setStudy(this);
+    }
 }

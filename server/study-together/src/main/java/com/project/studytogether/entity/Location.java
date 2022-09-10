@@ -28,4 +28,7 @@ public class Location {
     @OneToOne(mappedBy = "location")
     private Study study;
 
+    public void setStudy(Study study) {
+        study.setLocation(this);
+    }
 }
