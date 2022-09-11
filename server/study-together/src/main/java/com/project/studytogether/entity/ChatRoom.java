@@ -30,9 +30,9 @@ public class ChatRoom {
     private Study study;
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
+    private final List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Message> messageList = new ArrayList<>();
+    private final List<Message> messageList = new ArrayList<>();
 
 }

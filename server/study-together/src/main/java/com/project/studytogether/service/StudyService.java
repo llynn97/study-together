@@ -61,8 +61,8 @@ public class StudyService {
 	public ResponseDto<?> createStudyGroup(StudyCreateDto studyCreateDto) {
 		Study study = studyCreateDto.toEntity();
 		Location location = study.getLocation();
-		location.setStudy(study);
 		locationRepository.save(location);
+		study.setLocation(location);
 
 		List<TagRequestDto> tagRequestDtoList = studyCreateDto.getTagRequestDtoList();
 		List<Tag> studyTagList = new ArrayList<>();
@@ -75,33 +75,21 @@ public class StudyService {
 						.build();
 				tagRepository.save(tag);
 				studyTagList.add(tag);
+			} else {
+				studyTagList.add(tagName.get());
 			}
-		}
-
-		for (Tag studyTag : studyTagList) {
-			Category category = Category.builder()
-					.study(study)
-					.tag(studyTag)
-					.build();
-			categoryRepository.save(category);
 		}
 
 		String id = SecurityContextHolder.getContext().getAuthentication().getName();
 		Optional<User> loginUser = userRepository.findById(id);
-//		if (loginUser.isEmpty()) {
-//			throw new IllegalArgumentException("존재하지 않는 로그인 계정입니다");
-//		}
+		if (loginUser.isEmpty()) {
+			throw new IllegalArgumentException("존재하지 않는 로그인 계정입니다");
+		}
 
-//		User studyLeader = loginUser.get();
-		User studyLeader = User.builder()
-				.email("rlawowns0@nver.com")
-				.method(UserMethod.일반)
-				.password("dljfsldf")
-				.build();
-		// .. test
+		User studyLeader = loginUser.get();
 		StudyUser studyUser = StudyUser.builder()
 				.study(study)
-				.user(studyLeader)
+				.user(null)
 				.role(StudyUserRole.방장)
 				.build();
 		studyUserRepository.save(studyUser);
@@ -119,6 +107,14 @@ public class StudyService {
 		}
 		studyRepository.save(study);
 
-		return new ResponseDto<>(200, "success to create study group");
+		for (Tag studyTag : studyTagList) {
+			Category category = Category.builder()
+					.study(study)
+					.tag(studyTag)
+					.build();
+			categoryRepository.save(category);
+		}
+
+		return new ResponseDto<>(200, "success to create study group", study);
 	}
 }

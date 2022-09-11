@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "user")
+@Table(name = "users")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,17 +44,17 @@ public class User {
     private String refreshToken;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<StudyUser> StudyUserList = new ArrayList<>();
+    private final List<StudyUser> StudyUserList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<InterestStudy> InterestStudyList = new ArrayList<>();
+    private final List<InterestStudy> InterestStudyList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notification> notificationList = new ArrayList<>();
+    private final List<Notification> notificationList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Message> messageList = new ArrayList<>();
+    private final List<Message> messageList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
+    private final List<ChatRoomJoin> chatRoomJoinList = new ArrayList<>();
 }

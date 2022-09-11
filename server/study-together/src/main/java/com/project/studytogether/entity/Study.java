@@ -44,14 +44,14 @@ public class Study {
     @Column(length = 100)
     private String title;
 
-//    @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<InterestStudy> interestStudyList = new ArrayList<>();
+    @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<InterestStudy> interestStudyList = new ArrayList<>();
 
     @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<StudyUser> studyUserList = new ArrayList<>();
+    private final List<StudyUser> studyUserList = new ArrayList<>();
 
     @OneToMany(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Category> categoryList = new ArrayList<>();
+    private final List<Category> categoryList = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
@@ -61,6 +61,6 @@ public class Study {
     private ChatRoom chatRoom;
 
     public void setLocation(Location location) {
-        location.setStudy(this);
+        this.location = location;
     }
 }
